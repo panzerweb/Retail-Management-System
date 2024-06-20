@@ -11,14 +11,17 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -1132,7 +1135,33 @@ public final class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTableBtnActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        // TODO add your handling code here:
+//        try{
+//            boolean print = salesTable.print();
+//            if(!print){
+//                JOptionPane.showMessageDialog(null, "Unable to Print");
+//            }
+//        }
+//        catch(PrinterException e){
+//                JOptionPane.showMessageDialog(null, e.getMessage());
+//                e.printStackTrace();
+//        }
+
+        MessageFormat headerFormat = new MessageFormat("PANZERTECHZ");
+
+        MessageFormat footerFormat = new MessageFormat("All Rights Reserved 2024");
+
+        
+
+        try {
+            boolean complete = salesTable.print(JTable.PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            if (complete) {
+                System.out.println("Printing Complete");
+            } else {
+                System.out.println("Printing Canceled");
+            }
+        } catch (PrinterException pe) {
+            pe.printStackTrace();
+        }
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void salesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesTableMouseClicked
