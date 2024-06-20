@@ -49,8 +49,8 @@ public final class Main extends javax.swing.JFrame {
         salesTable.getRowHeight(25);
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(32,136,203));
-        headerRenderer.setForeground(new Color(255,255,255));
+        headerRenderer.setBackground(new Color(3,218,197));
+        headerRenderer.setForeground(new Color(0,0,0));
 
 
         for (int i = 0; i < salesTable.getModel().getColumnCount(); i++) {
@@ -1234,35 +1234,39 @@ public final class Main extends javax.swing.JFrame {
                 //Get the Table Model and get its Rows
                 DefaultTableModel model = (DefaultTableModel) salesTable.getModel();
                 int[] selectedRows = salesTable.getSelectedRows();
-                    
-                    
-                //Options to confirm if user want to delete
-                String[] options = {"Yes", "No"};
-                int response = JOptionPane.showOptionDialog(null, "Do you Wish to Delete Selection?", "UTS", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                    
-                    //If user confirms to not delete
-                    if (response == JOptionPane.NO_OPTION) {
-                        JOptionPane.showMessageDialog(this, "Understood");
-                        return;
-                    }
+      
                 //If user does not select a row or rows   
                 if (selectedRows.length == 0) {
                     JOptionPane.showMessageDialog(null, "No Selected Rows", "Error", JOptionPane.ERROR_MESSAGE);             
                 }
-                //If user selected rows, it would delete successfully the rows selected
+                //If user selected rows, it would delete successfully the rows selected              
                 else{
-                    for (int i = selectedRows.length - 1; i >= 0; i--) {
+                    
+                    //Options to confirm if user want to delete
+                    String[] options = {"Yes", "No"};
+                    int response = JOptionPane.showOptionDialog(null, "Do you Wish to Delete Selection?", "UTS", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    
+                        //If user confirms to not delete
+                        if (response == JOptionPane.NO_OPTION) {
+                            JOptionPane.showMessageDialog(this, "Understood");
+                            return;
+                        }
+                        else{
+                            //Delete the rows selected
+                            for (int i = selectedRows.length - 1; i >= 0; i--) {
 
-                            int row = selectedRows[i];
-                            String value = model.getValueAt(row, 0).toString();
-                            String query = "DELETE FROM item_table WHERE item_id = " + value;
+                                    int row = selectedRows[i];
+                                    String value = model.getValueAt(row, 0).toString();
+                                    String query = "DELETE FROM item_table WHERE item_id = " + value;
 
-                            PreparedStatement pst = conn.prepareStatement(query);
-                            pst.executeUpdate();
-                            model.removeRow(row);                    
+                                    PreparedStatement pst = conn.prepareStatement(query);
+                                    pst.executeUpdate();
+                                    model.removeRow(row);                    
 
-                    }
-                    JOptionPane.showMessageDialog(null, "Deleted Successfully");                   
+                            }
+                            JOptionPane.showMessageDialog(null, "Deleted Successfully");                              
+                        }
+                
                 }
 
                 
