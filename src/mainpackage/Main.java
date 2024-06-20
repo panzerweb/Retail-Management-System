@@ -9,9 +9,13 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -138,6 +142,14 @@ public final class Main extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         profilePanel = new javax.swing.JPanel();
+        title5 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -148,6 +160,7 @@ public final class Main extends javax.swing.JFrame {
         navigationbars.setBackground(new java.awt.Color(0, 0, 0));
 
         Transaction.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Transaction.setForeground(new java.awt.Color(0, 0, 0));
         Transaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-to-cart.png"))); // NOI18N
         Transaction.setText("Add Purchase");
         Transaction.addActionListener(new java.awt.event.ActionListener() {
@@ -161,6 +174,7 @@ public final class Main extends javax.swing.JFrame {
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Brand Logo - 60px.png"))); // NOI18N
 
         ReportPanel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        ReportPanel.setForeground(new java.awt.Color(0, 0, 0));
         ReportPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/monitoring.png"))); // NOI18N
         ReportPanel.setText("Report Sales");
         ReportPanel.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +183,9 @@ public final class Main extends javax.swing.JFrame {
             }
         });
 
+        profileBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        profileBtn.setForeground(new java.awt.Color(0, 0, 0));
+        profileBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user.png"))); // NOI18N
         profileBtn.setText("Profile");
         profileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,6 +194,7 @@ public final class Main extends javax.swing.JFrame {
         });
 
         salesTableHistory.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        salesTableHistory.setForeground(new java.awt.Color(0, 0, 0));
         salesTableHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/increase.png"))); // NOI18N
         salesTableHistory.setText("Sales Table");
         salesTableHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +204,7 @@ public final class Main extends javax.swing.JFrame {
         });
 
         developerBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        developerBtn.setForeground(new java.awt.Color(0, 0, 0));
         developerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/id-card.png"))); // NOI18N
         developerBtn.setText("Developer");
         developerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -290,6 +309,7 @@ public final class Main extends javax.swing.JFrame {
 
         qtySpinner.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         qtySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        qtySpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         qtySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 qtySpinnerStateChanged(evt);
@@ -301,6 +321,7 @@ public final class Main extends javax.swing.JFrame {
         addPurchaseBtn.setForeground(new java.awt.Color(0, 0, 0));
         addPurchaseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/decrease.png"))); // NOI18N
         addPurchaseBtn.setText("Add Purchase");
+        addPurchaseBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addPurchaseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPurchaseBtnActionPerformed(evt);
@@ -319,6 +340,7 @@ public final class Main extends javax.swing.JFrame {
         changeConfirm.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         changeConfirm.setForeground(new java.awt.Color(0, 0, 0));
         changeConfirm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Settled" }));
+        changeConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
@@ -453,6 +475,7 @@ public final class Main extends javax.swing.JFrame {
         searchAndListPanel.setBackground(new java.awt.Color(18, 18, 18));
 
         searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        searchBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBtnActionPerformed(evt);
@@ -581,6 +604,7 @@ public final class Main extends javax.swing.JFrame {
         tablePanel.add(dateChooserSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 114, 432, 50));
 
         searchTableBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        searchTableBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchTableBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTableBtnActionPerformed(evt);
@@ -605,6 +629,7 @@ public final class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        salesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         salesTable.setRowHeight(40);
         salesTable.setSelectionBackground(new java.awt.Color(0, 102, 102));
         salesTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
@@ -640,6 +665,7 @@ public final class Main extends javax.swing.JFrame {
         printButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         printButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/printer.png"))); // NOI18N
         printButton.setText("Print");
+        printButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         printButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printButtonActionPerformed(evt);
@@ -650,6 +676,7 @@ public final class Main extends javax.swing.JFrame {
         editButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-text.png"))); // NOI18N
         editButton.setText("Edit");
+        editButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
@@ -660,6 +687,7 @@ public final class Main extends javax.swing.JFrame {
         deleteButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
         deleteButton.setText("Delete");
+        deleteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -687,10 +715,11 @@ public final class Main extends javax.swing.JFrame {
         developerPanel.add(title4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 710, 55));
 
         imageDev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/CV Pic.png"))); // NOI18N
-        developerPanel.add(imageDev, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 210));
+        imageDev.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        developerPanel.add(imageDev, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 200));
 
         jPanel2.setBackground(new java.awt.Color(40, 40, 40));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jScrollPane3.setBorder(null);
 
@@ -739,26 +768,88 @@ public final class Main extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/social.png"))); // NOI18N
         jLabel13.setText("Github Repository ");
-        developerPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 160, -1));
+        developerPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 540, 160, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("jLabel14");
-        developerPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 560, 300, -1));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("https://github.com/panzerweb/Retail-Management-System.git");
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+        developerPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 570, 420, -1));
 
         panelCards.add(developerPanel, "card5");
 
-        profilePanel.setBackground(new java.awt.Color(102, 102, 102));
+        profilePanel.setBackground(new java.awt.Color(18, 18, 18));
+
+        title5.setFont(new java.awt.Font("Eras Bold ITC", 0, 24)); // NOI18N
+        title5.setForeground(new java.awt.Color(255, 255, 255));
+        title5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title5.setText("Retail Sales Transaction Management System");
+
+        jPanel4.setBackground(new java.awt.Color(18, 18, 18));
+        jPanel4.setLayout(new java.awt.GridLayout(0, 1));
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Username");
+        jPanel4.add(jLabel15);
+
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(59, 58, 58));
+        jTextField1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setToolTipText("Username");
+        jPanel4.add(jTextField1);
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Email Address");
+        jPanel4.add(jLabel16);
+
+        jTextField3.setEditable(false);
+        jTextField3.setBackground(new java.awt.Color(59, 58, 58));
+        jTextField3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField3.setToolTipText("Email");
+        jPanel4.add(jTextField3);
+
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Password");
+        jPanel4.add(jLabel17);
+
+        jPasswordField1.setBackground(new java.awt.Color(59, 58, 58));
+        jPasswordField1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setToolTipText("Password");
+        jPanel4.add(jPasswordField1);
 
         javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
         profilePanel.setLayout(profilePanelLayout);
         profilePanelLayout.setHorizontalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(title5, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         panelCards.add(profilePanel, "card4");
@@ -794,6 +885,13 @@ public final class Main extends javax.swing.JFrame {
         String qtyInput = qtySpinner.getValue().toString().trim();
         String paymentInput = paymentPaidField.getText().trim();
         String statusInput = (String) changeConfirm.getSelectedItem();
+        
+        
+        // Check if any fields are empty
+        if (item_name.isEmpty() || priceInput.isEmpty() || qtyInput.isEmpty() || paymentInput.isEmpty() || statusInput.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
             int price = Integer.parseInt(priceInput);
             int quantity = Integer.parseInt(qtyInput);
@@ -1123,38 +1221,50 @@ public final class Main extends javax.swing.JFrame {
             tableModel.setValueAt(changeUpdate, salesTable.getSelectedRow(), 6);
             tableModel.setValueAt(statusUpdate, salesTable.getSelectedRow(), 7);
         }
+        else{
+            JOptionPane.showMessageDialog(null, "No Selected Rows", "Error", JOptionPane.ERROR_MESSAGE);             
+
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
          try {
                 Connection conn = DriverManager.getConnection(db_url, username, password);
 
+                //Get the Table Model and get its Rows
                 DefaultTableModel model = (DefaultTableModel) salesTable.getModel();
                 int[] selectedRows = salesTable.getSelectedRows();
-
+                    
+                    
+                //Options to confirm if user want to delete
                 String[] options = {"Yes", "No"};
                 int response = JOptionPane.showOptionDialog(null, "Do you Wish to Delete Selection?", "UTS", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-                for (int i = selectedRows.length - 1; i >= 0; i--) {
-
+                    
+                    //If user confirms to not delete
                     if (response == JOptionPane.NO_OPTION) {
                         JOptionPane.showMessageDialog(this, "Understood");
-                        break;
+                        return;
                     }
-                    else{
-                        int row = selectedRows[i];
-                        String value = model.getValueAt(row, 0).toString();
-                        String query = "DELETE FROM item_table WHERE item_id = " + value;
-
-                        PreparedStatement pst = conn.prepareStatement(query);
-                        pst.executeUpdate();
-                        model.removeRow(row);
-                        
-                        
-                    }
-                        
+                //If user does not select a row or rows   
+                if (selectedRows.length == 0) {
+                    JOptionPane.showMessageDialog(null, "No Selected Rows", "Error", JOptionPane.ERROR_MESSAGE);             
                 }
-                JOptionPane.showMessageDialog(null, "Deleted Successfully");
+                //If user selected rows, it would delete successfully the rows selected
+                else{
+                    for (int i = selectedRows.length - 1; i >= 0; i--) {
+
+                            int row = selectedRows[i];
+                            String value = model.getValueAt(row, 0).toString();
+                            String query = "DELETE FROM item_table WHERE item_id = " + value;
+
+                            PreparedStatement pst = conn.prepareStatement(query);
+                            pst.executeUpdate();
+                            model.removeRow(row);                    
+
+                    }
+                    JOptionPane.showMessageDialog(null, "Deleted Successfully");                   
+                }
+
                 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -1164,6 +1274,15 @@ public final class Main extends javax.swing.JFrame {
     private void developerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_developerBtnActionPerformed
         cardLayout.show(panelCards, "card5");
     }//GEN-LAST:event_developerBtnActionPerformed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI uri = new URI("https://github.com/panzerweb/Retail-Management-System.git");
+            desktop.browse(uri);
+        } catch (IOException | URISyntaxException e) {
+        }
+    }//GEN-LAST:event_jLabel14MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1222,6 +1341,9 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1233,6 +1355,8 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1240,6 +1364,8 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel navigationbars;
     private javax.swing.JPanel panelCards;
@@ -1261,6 +1387,7 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JLabel title2;
     private javax.swing.JLabel title3;
     private javax.swing.JLabel title4;
+    private javax.swing.JLabel title5;
     private javax.swing.JTextField totalAmountField;
     private javax.swing.JTextField totalPaymentsDisplay;
     private javax.swing.JTextField totalSalesDisplay;
