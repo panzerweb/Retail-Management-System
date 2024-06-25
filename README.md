@@ -18,3 +18,22 @@ Through a date-based format transaction, the sales are presented through selecti
 ## 3. Recorded Sales Table
 
 Using the same date-based format transaction, the overall record and transactions per day are recorded and listed down inside the system's database and thus are shown when a specific date was called in a table format. Ensuring transparency of the system.
+
+### Additional Features of Sales Table
+
+> **Printing**
+
+
+> **Editing a transaction**
+
+
+> **Deleting a transaction**
+
+
+### **About the Developer**
+
+Hi! I am Romeo Selwyn M. Villar, I am a first-year student in Bachelor of Science in Information Technology at Davao del Norte State College (DNSC).
+
+I am interested in Web Development, Graphic Design, and Software Development. I have created simple, and imaginable projects recently.
+
+The idea of this project from a classmate of mine who discussed me upon this concept of recording all transactions in their sari-sari store. Likewise, I also have a sari-sari store and was fascinated by the idea so I started creating the system.
