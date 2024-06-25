@@ -164,8 +164,8 @@ public class SplashScreen extends javax.swing.JFrame {
                         sp.modules.setText("Launching Successful...");
                         
                         sp.setVisible(false);
-                        Main home = new Main();
-                        home.setVisible(true);
+                        Login log = new Login();
+                        log.setVisible(true);
                     }
                     sp.loadingBar.setValue(i);
                     
