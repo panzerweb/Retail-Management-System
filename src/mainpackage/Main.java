@@ -148,11 +148,11 @@ public final class Main extends javax.swing.JFrame {
         title5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        userProfile = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        emailProfile = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passCodeProfile = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -802,35 +802,35 @@ public final class Main extends javax.swing.JFrame {
         jLabel15.setText("Username");
         jPanel4.add(jLabel15);
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(59, 58, 58));
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setToolTipText("Username");
-        jPanel4.add(jTextField1);
+        userProfile.setEditable(false);
+        userProfile.setBackground(new java.awt.Color(59, 58, 58));
+        userProfile.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        userProfile.setForeground(new java.awt.Color(255, 255, 255));
+        userProfile.setToolTipText("Username");
+        jPanel4.add(userProfile);
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Email Address");
         jPanel4.add(jLabel16);
 
-        jTextField3.setEditable(false);
-        jTextField3.setBackground(new java.awt.Color(59, 58, 58));
-        jTextField3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setToolTipText("Email");
-        jPanel4.add(jTextField3);
+        emailProfile.setEditable(false);
+        emailProfile.setBackground(new java.awt.Color(59, 58, 58));
+        emailProfile.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        emailProfile.setForeground(new java.awt.Color(255, 255, 255));
+        emailProfile.setToolTipText("Email");
+        jPanel4.add(emailProfile);
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Password");
         jPanel4.add(jLabel17);
 
-        jPasswordField1.setBackground(new java.awt.Color(59, 58, 58));
-        jPasswordField1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setToolTipText("Password");
-        jPanel4.add(jPasswordField1);
+        passCodeProfile.setBackground(new java.awt.Color(59, 58, 58));
+        passCodeProfile.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        passCodeProfile.setForeground(new java.awt.Color(255, 255, 255));
+        passCodeProfile.setToolTipText("Password");
+        jPanel4.add(passCodeProfile);
 
         javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
         profilePanel.setLayout(profilePanelLayout);
@@ -1201,7 +1201,7 @@ public final class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_salesTableMouseClicked
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        
+        cardLayout.show(panelCards, "card1");
         
         
         DefaultTableModel tableModel = (DefaultTableModel) salesTable.getModel();
@@ -1317,9 +1317,15 @@ public final class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel14MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    public void setUserName(String adminUserName){
+        this.userProfile.setText(adminUserName);
+    }
+    public void setEmail(String adminEmail){
+        this.emailProfile.setText(adminEmail);
+    }
+    public void setPassCode(String adminPass){
+        this.passCodeProfile.setText(adminPass);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1366,6 +1372,7 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JButton developerBtn;
     private javax.swing.JPanel developerPanel;
     private javax.swing.JButton editButton;
+    private javax.swing.JTextField emailProfile;
     private javax.swing.JLabel imageDev;
     private javax.swing.JTextField itemNameField;
     private javax.swing.JLabel jLabel1;
@@ -1389,7 +1396,6 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1397,11 +1403,10 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel navigationbars;
     private javax.swing.JPanel panelCards;
+    private javax.swing.JPasswordField passCodeProfile;
     private javax.swing.JTextField paymentPaidField;
     private javax.swing.JTextField priceField;
     private javax.swing.JButton printButton;
@@ -1425,5 +1430,6 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JTextField totalPaymentsDisplay;
     private javax.swing.JTextField totalSalesDisplay;
     private javax.swing.JPanel transactionPanel;
+    private javax.swing.JTextField userProfile;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,15 +4,20 @@
  */
 package mainpackage;
 
+import java.sql.*;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Admin
  */
 public class Register extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Register
-     */
+    //Database Connection Variables
+    static final String db_url = "jdbc:mysql://localhost:3306/retail_db";
+    static final String username = "root";
+    static final String password = "";
+    
     public Register() {
         initComponents();
     }
@@ -106,6 +111,11 @@ public class Register extends javax.swing.JFrame {
         submitButton.setForeground(new java.awt.Color(0, 0, 0));
         submitButton.setText("Register");
         submitButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
         backgroundPanel.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, 190, 50));
 
         jLabel6.setForeground(new java.awt.Color(51, 204, 255));
@@ -136,6 +146,39 @@ public class Register extends javax.swing.JFrame {
        log.setVisible(true);
        setVisible(false);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        String userN, emailAd, passW;
+        
+        try {
+            Connection conn = DriverManager.getConnection(db_url, username, password);
+            Statement stmt = conn.createStatement();
+            if ("".equals(Username.getText())) {
+                JOptionPane.showMessageDialog(this, "Full Name is Required");
+            }else if("".equals(EmailAddress.getText())){
+                JOptionPane.showMessageDialog(this, "Email Address is Required");
+            }else if("".equals(passWord.getText())){
+                JOptionPane.showMessageDialog(this, "Password is Required");
+            }
+            else{
+                    String userInput = Username.getText().trim();
+                    String emailInput = EmailAddress.getText().trim();
+                    String passcode = passWord.getText().trim();
+                    
+                    String insertQuery = "INSERT INTO admin_accounts (username,email_address,password) VALUES ('" + userInput + "', '" + emailInput + "', '" + passcode + "')";
+                    
+                    stmt.executeUpdate(insertQuery);
+                    
+                    Username.setText("");
+                    EmailAddress.setText("");
+                    passWord.setText("");
+                    JOptionPane.showMessageDialog(this, "New Admin Account Created Successfully!");
+                    
+            }
+        } catch (SQLException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
      * @param args the command line arguments

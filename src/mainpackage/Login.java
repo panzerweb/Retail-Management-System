@@ -4,15 +4,20 @@
  */
 package mainpackage;
 
-/**
- *
- * @author Admin
- */
+
+import java.sql.*;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    //Database Connection Variables
+    static final String db_url = "jdbc:mysql://localhost:3306/retail_db";
+    static final String username = "root";
+    static final String password = "";
+    
     public Login() {
         initComponents();
     }
@@ -32,9 +37,9 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Header = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Username = new javax.swing.JTextField();
+        UsernameField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        passWord = new javax.swing.JPasswordField();
+        passWordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -71,28 +76,33 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Username");
         backgroundPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
 
-        Username.setBackground(new java.awt.Color(18, 18, 18));
-        Username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Username.setForeground(new java.awt.Color(51, 204, 255));
-        Username.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 204), 1, true));
-        backgroundPanel.add(Username, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 380, 40));
+        UsernameField.setBackground(new java.awt.Color(18, 18, 18));
+        UsernameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        UsernameField.setForeground(new java.awt.Color(51, 204, 255));
+        UsernameField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 204), 1, true));
+        backgroundPanel.add(UsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 380, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 204, 255));
         jLabel5.setText("Password");
         backgroundPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, -1, -1));
 
-        passWord.setBackground(new java.awt.Color(18, 18, 18));
-        passWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        passWord.setForeground(new java.awt.Color(255, 255, 255));
-        passWord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
-        backgroundPanel.add(passWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 380, 40));
+        passWordField.setBackground(new java.awt.Color(18, 18, 18));
+        passWordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        passWordField.setForeground(new java.awt.Color(255, 255, 255));
+        passWordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
+        backgroundPanel.add(passWordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 380, 40));
 
         loginButton.setBackground(new java.awt.Color(0, 204, 204));
         loginButton.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         loginButton.setForeground(new java.awt.Color(0, 0, 0));
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
         backgroundPanel.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 190, 40));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,6 +135,44 @@ public class Login extends javax.swing.JFrame {
        reg.setVisible(true);
        setVisible(false);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String adminUserName = null, adminEmail = null, adminPass = null;
+        int isFound = 0;
+        
+        try {
+            Connection conn = DriverManager.getConnection(db_url, username, password);
+            String selectQuery = "SELECT * FROM admin_accounts WHERE username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(selectQuery);
+            pstmt.setString(1, UsernameField.getText().trim());
+            
+            ResultSet rs =  pstmt.executeQuery();
+            
+                if(rs.next()){
+                    adminUserName = rs.getString("username");
+                    adminPass = rs.getString("password");
+                    adminEmail = rs.getString("email_address");
+                    isFound = 1;
+                }
+                if(isFound == 1 && adminPass.equals(passWordField.getText().trim())){
+                    JOptionPane.showMessageDialog(this, "Logged In Successfully!");
+                    Main main = new Main();
+                    main.setVisible(true);
+                    setVisible(false);
+                    
+                        //Set method for the text field in the main UI
+                        main.setUserName(adminUserName);
+                        main.setEmail(adminEmail);
+                        main.setPassCode(adminPass);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Incorrect Username or Password");
+                }
+                passWordField.setText("");
+        } catch (SQLException e) {
+            System.out.println("Error" + e.getMessage());
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,7 +211,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Header;
-    private javax.swing.JTextField Username;
+    private javax.swing.JTextField UsernameField;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JLabel bgImg;
     private javax.swing.JLabel jLabel1;
@@ -174,6 +222,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel logo;
-    private javax.swing.JPasswordField passWord;
+    private javax.swing.JPasswordField passWordField;
     // End of variables declaration//GEN-END:variables
 }
