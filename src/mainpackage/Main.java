@@ -107,6 +107,7 @@ public final class Main extends javax.swing.JFrame {
         paymentPaidField = new javax.swing.JTextField();
         changeConfirm = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        editingPurchase = new javax.swing.JButton();
         dateField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         searchAndListPanel = new javax.swing.JPanel();
@@ -349,6 +350,17 @@ public final class Main extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
         jLabel11.setText("Status");
 
+        editingPurchase.setBackground(new java.awt.Color(3, 218, 197));
+        editingPurchase.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        editingPurchase.setForeground(new java.awt.Color(0, 0, 0));
+        editingPurchase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-text.png"))); // NOI18N
+        editingPurchase.setText("Edit");
+        editingPurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editingPurchaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
         container.setLayout(containerLayout);
         containerLayout.setHorizontalGroup(
@@ -385,11 +397,13 @@ public final class Main extends javax.swing.JFrame {
                         .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(changeConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
-                        .addGap(0, 177, Short.MAX_VALUE)
-                        .addComponent(addPurchaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(173, Short.MAX_VALUE))))
+                        .addContainerGap(20, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editingPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPurchaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         containerLayout.setVerticalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,7 +433,9 @@ public final class Main extends javax.swing.JFrame {
                     .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(changeConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(addPurchaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addPurchaseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(editingPurchase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -447,7 +463,7 @@ public final class Main extends javax.swing.JFrame {
                 .addGroup(transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(transactionPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE))
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
                     .addGroup(transactionPanelLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1189,7 +1205,7 @@ public final class Main extends javax.swing.JFrame {
         String itemName = tableModel.getValueAt(salesTable.getSelectedRow(), 1).toString();
         int priceText = Integer.parseInt(tableModel.getValueAt(salesTable.getSelectedRow(), 2).toString());
         int qtyText = Integer.parseInt(tableModel.getValueAt(salesTable.getSelectedRow(), 3).toString());
-        int paymentText = Integer.parseInt(tableModel.getValueAt(salesTable.getSelectedRow(), 4).toString());
+        int paymentText = Integer.parseInt(tableModel.getValueAt(salesTable.getSelectedRow(), 5).toString());
         String statusText = tableModel.getValueAt(salesTable.getSelectedRow(), 6).toString();
         
         //Set it to Text Field
@@ -1204,56 +1220,7 @@ public final class Main extends javax.swing.JFrame {
         cardLayout.show(panelCards, "card1");
         
         
-        DefaultTableModel tableModel = (DefaultTableModel) salesTable.getModel();
-
-        if (salesTable.getSelectedRow() >= 0) { // Changed from == 1 to >= 0
-            String itemName = itemNameField.getText();
-            int priceUpdate = Integer.parseInt(priceField.getText());
-            int qtyUpdate = Integer.parseInt(qtySpinner.getValue().toString());
-            int paymentUpdate = Integer.parseInt(paymentPaidField.getText());
-            int newAmount = priceUpdate * qtyUpdate;
-            int changeUpdate = paymentUpdate - newAmount;
-            String statusUpdate = (String) changeConfirm.getSelectedItem();
-
-            // Assuming itemId is the ID of the item you want to update
-            int itemId = (int) tableModel.getValueAt(salesTable.getSelectedRow(), 0);
-
-            String updateQuery = "UPDATE item_table SET item_name =?, price =?, quantity =?, amount =?, payment_paid =?, change_amount =?, status =? " +
-                                 "WHERE item_id =?";
-
-            try {
-                Connection conn = DriverManager.getConnection(db_url, username, password);
-                PreparedStatement pstmt = conn.prepareStatement(updateQuery);
-
-                pstmt.setString(1, itemName);
-                pstmt.setInt(2, priceUpdate);
-                pstmt.setInt(3, qtyUpdate);
-                pstmt.setInt(4, newAmount);
-                pstmt.setInt(5, paymentUpdate);
-                pstmt.setInt(6, changeUpdate);
-                pstmt.setString(7, statusUpdate);
-                pstmt.setInt(8, itemId); // Set the item ID in the WHERE clause
-
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
-                    System.out.println("Record updated successfully.");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            tableModel.setValueAt(itemName, salesTable.getSelectedRow(), 1);
-            tableModel.setValueAt(priceUpdate, salesTable.getSelectedRow(), 2);
-            tableModel.setValueAt(qtyUpdate, salesTable.getSelectedRow(), 3);
-            tableModel.setValueAt(newAmount, salesTable.getSelectedRow(), 4);
-            tableModel.setValueAt(paymentUpdate, salesTable.getSelectedRow(), 5);
-            tableModel.setValueAt(changeUpdate, salesTable.getSelectedRow(), 6);
-            tableModel.setValueAt(statusUpdate, salesTable.getSelectedRow(), 7);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No Selected Rows", "Error", JOptionPane.ERROR_MESSAGE);             
-
-        }
+        
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -1317,6 +1284,60 @@ public final class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel14MouseClicked
 
+    private void editingPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editingPurchaseActionPerformed
+        DefaultTableModel tableModel = (DefaultTableModel) salesTable.getModel();
+
+        if (salesTable.getSelectedRow() >= 0) { // Changed from == 1 to >= 0
+            String itemName = itemNameField.getText();
+            int priceUpdate = Integer.parseInt(priceField.getText());
+            int qtyUpdate = Integer.parseInt(qtySpinner.getValue().toString());
+            int paymentUpdate = Integer.parseInt(paymentPaidField.getText());
+            int newAmount = priceUpdate * qtyUpdate;
+            int changeUpdate = paymentUpdate - newAmount;
+            String statusUpdate = (String) changeConfirm.getSelectedItem();
+
+            // Assuming itemId is the ID of the item you want to update
+            int itemId = (int) tableModel.getValueAt(salesTable.getSelectedRow(), 0);
+
+            String updateQuery = "UPDATE item_table SET item_name =?, price =?, quantity =?, amount =?, payment_paid =?, change_amount =?, status =? " +
+                                 "WHERE item_id =?";
+
+            try {
+                Connection conn = DriverManager.getConnection(db_url, username, password);
+                PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+
+                pstmt.setString(1, itemName);
+                pstmt.setInt(2, priceUpdate);
+                pstmt.setInt(3, qtyUpdate);
+                pstmt.setInt(4, newAmount);
+                pstmt.setInt(5, paymentUpdate);
+                pstmt.setInt(6, changeUpdate);
+                pstmt.setString(7, statusUpdate);
+                pstmt.setInt(8, itemId); // Set the item ID in the WHERE clause
+
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows > 0) {
+                    System.out.println("Record updated successfully.");
+                    JOptionPane.showMessageDialog(this, "Record updated successfully.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            tableModel.setValueAt(itemName, salesTable.getSelectedRow(), 1);
+            tableModel.setValueAt(priceUpdate, salesTable.getSelectedRow(), 2);
+            tableModel.setValueAt(qtyUpdate, salesTable.getSelectedRow(), 3);
+            tableModel.setValueAt(newAmount, salesTable.getSelectedRow(), 4);
+            tableModel.setValueAt(paymentUpdate, salesTable.getSelectedRow(), 5);
+            tableModel.setValueAt(changeUpdate, salesTable.getSelectedRow(), 6);
+            tableModel.setValueAt(statusUpdate, salesTable.getSelectedRow(), 7);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No Selected Rows", "Error", JOptionPane.ERROR_MESSAGE);             
+
+        }
+    }//GEN-LAST:event_editingPurchaseActionPerformed
+
     public void setUserName(String adminUserName){
         this.userProfile.setText(adminUserName);
     }
@@ -1372,6 +1393,7 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JButton developerBtn;
     private javax.swing.JPanel developerPanel;
     private javax.swing.JButton editButton;
+    private javax.swing.JButton editingPurchase;
     private javax.swing.JTextField emailProfile;
     private javax.swing.JLabel imageDev;
     private javax.swing.JTextField itemNameField;
