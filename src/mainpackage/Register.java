@@ -174,6 +174,10 @@ public class Register extends javax.swing.JFrame {
                     passWord.setText("");
                     JOptionPane.showMessageDialog(this, "New Admin Account Created Successfully!");
                     
+                    Login log = new Login();
+                    log.setVisible(true);
+                    setVisible(false);
+                    
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.getMessage());
