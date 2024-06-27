@@ -163,10 +163,16 @@ public final class Main extends javax.swing.JFrame {
 
         navigationbars.setBackground(new java.awt.Color(0, 0, 0));
 
+        Transaction.setBackground(new java.awt.Color(204, 204, 204));
         Transaction.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Transaction.setForeground(new java.awt.Color(0, 0, 0));
         Transaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-to-cart.png"))); // NOI18N
         Transaction.setText("Add Purchase");
+        Transaction.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TransactionFocusGained(evt);
+            }
+        });
         Transaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransactionActionPerformed(evt);
@@ -177,40 +183,64 @@ public final class Main extends javax.swing.JFrame {
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Brand Logo - 60px.png"))); // NOI18N
 
+        ReportPanel.setBackground(new java.awt.Color(204, 204, 204));
         ReportPanel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ReportPanel.setForeground(new java.awt.Color(0, 0, 0));
         ReportPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/monitoring.png"))); // NOI18N
         ReportPanel.setText("Report Sales");
+        ReportPanel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ReportPanelFocusGained(evt);
+            }
+        });
         ReportPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportPanelActionPerformed(evt);
             }
         });
 
+        profileBtn.setBackground(new java.awt.Color(204, 204, 204));
         profileBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         profileBtn.setForeground(new java.awt.Color(0, 0, 0));
         profileBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user.png"))); // NOI18N
         profileBtn.setText("Profile");
+        profileBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                profileBtnFocusGained(evt);
+            }
+        });
         profileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileBtnActionPerformed(evt);
             }
         });
 
+        salesTableHistory.setBackground(new java.awt.Color(204, 204, 204));
         salesTableHistory.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         salesTableHistory.setForeground(new java.awt.Color(0, 0, 0));
         salesTableHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/increase.png"))); // NOI18N
         salesTableHistory.setText("Sales Table");
+        salesTableHistory.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                salesTableHistoryFocusGained(evt);
+            }
+        });
         salesTableHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salesTableHistoryActionPerformed(evt);
             }
         });
 
+        developerBtn.setBackground(new java.awt.Color(204, 204, 204));
         developerBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         developerBtn.setForeground(new java.awt.Color(0, 0, 0));
         developerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/id-card.png"))); // NOI18N
         developerBtn.setText("Developer");
+        developerBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                developerBtnFocusGained(evt);
+            }
+        });
         developerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 developerBtnActionPerformed(evt);
@@ -1338,6 +1368,40 @@ public final class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editingPurchaseActionPerformed
 
+    private void TransactionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TransactionFocusGained
+        resetTabBorders();
+        Transaction.setBackground(Color.cyan);
+    }//GEN-LAST:event_TransactionFocusGained
+
+    private void ReportPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ReportPanelFocusGained
+        resetTabBorders();
+        ReportPanel.setBackground(Color.cyan);
+    }//GEN-LAST:event_ReportPanelFocusGained
+
+    private void salesTableHistoryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_salesTableHistoryFocusGained
+        resetTabBorders();
+        salesTableHistory.setBackground(Color.cyan);
+    }//GEN-LAST:event_salesTableHistoryFocusGained
+
+    private void developerBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_developerBtnFocusGained
+        resetTabBorders();
+        developerBtn.setBackground(Color.cyan);
+    }//GEN-LAST:event_developerBtnFocusGained
+
+    private void profileBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_profileBtnFocusGained
+        resetTabBorders();
+        profileBtn.setBackground(Color.cyan);
+    }//GEN-LAST:event_profileBtnFocusGained
+
+    private void resetTabBorders() {
+    // Reset the background color of all tab buttons
+            Transaction.setBackground(new Color(204,204,204));
+            ReportPanel.setBackground(new Color(204,204,204));
+            salesTableHistory.setBackground(new Color(204,204,204));
+            developerBtn.setBackground(new Color(204,204,204));
+            profileBtn.setBackground(new Color(204,204,204));
+    }
+    
     public void setUserName(String adminUserName){
         this.userProfile.setText(adminUserName);
     }
