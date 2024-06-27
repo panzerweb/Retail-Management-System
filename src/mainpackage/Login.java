@@ -41,6 +41,8 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         passWordField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        showPassword = new javax.swing.JButton();
+        hidePassword = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         bgImg = new javax.swing.JLabel();
@@ -68,7 +70,7 @@ public class Login extends javax.swing.JFrame {
 
         Header.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         Header.setForeground(new java.awt.Color(51, 204, 255));
-        Header.setText("Admin Register");
+        Header.setText("Admin Login");
         backgroundPanel.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
@@ -103,7 +105,29 @@ public class Login extends javax.swing.JFrame {
                 loginButtonActionPerformed(evt);
             }
         });
-        backgroundPanel.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 190, 40));
+        backgroundPanel.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 190, 40));
+
+        showPassword.setBackground(new java.awt.Color(255, 102, 153));
+        showPassword.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        showPassword.setForeground(new java.awt.Color(0, 0, 0));
+        showPassword.setText("Show");
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+        backgroundPanel.add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 80, -1));
+
+        hidePassword.setBackground(new java.awt.Color(255, 102, 153));
+        hidePassword.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        hidePassword.setForeground(new java.awt.Color(0, 0, 0));
+        hidePassword.setText("Hide");
+        hidePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hidePasswordActionPerformed(evt);
+            }
+        });
+        backgroundPanel.add(hidePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 80, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -173,6 +197,35 @@ public class Login extends javax.swing.JFrame {
             System.out.println("Error" + e.getMessage());
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+//Matching the visibility
+    private boolean iconVisible = false;
+    private boolean passWordVisible = false;
+    
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        hidePassword.setVisible(passWordVisible);
+        showPassword.setVisible(!passWordVisible);
+
+        if (passWordVisible) {
+            passWordField.setEchoChar('*');
+        } else {
+            passWordField.setEchoChar((char)0);
+        }
+
+        passWordVisible = !passWordVisible;
+
+    }//GEN-LAST:event_showPasswordActionPerformed
+
+    private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
+        hidePassword.setVisible(!passWordVisible);
+        showPassword.setVisible(passWordVisible);
+
+        if (passWordVisible) {
+            passWordField.setEchoChar('*');
+        } else {
+            passWordField.setEchoChar((char)0);
+        }
+        passWordVisible = !passWordVisible;
+    }//GEN-LAST:event_hidePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +267,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField UsernameField;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JLabel bgImg;
+    private javax.swing.JButton hidePassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -223,5 +277,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel logo;
     private javax.swing.JPasswordField passWordField;
+    private javax.swing.JButton showPassword;
     // End of variables declaration//GEN-END:variables
 }
